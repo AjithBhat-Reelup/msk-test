@@ -1,0 +1,11 @@
+{
+  "name": "msk-producer",
+  "version": "1.0.0",
+  "main": "producer.js",
+  "dependencies": {
+    "kafkajs": "^2.2.4"
+  },
+  "scripts": {
+    "start": "node producer.js"
+  }
+}
