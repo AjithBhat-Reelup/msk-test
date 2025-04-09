@@ -19,7 +19,7 @@ jobs:
           # This will use the automatically provided GITHUB_TOKEN with
           # 'read/write packages' permissions on your repository (or org).
           username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
+          password: ${{ secrets.MY_GHCR_PAT }}
 
       - name: Build image
         run: |
