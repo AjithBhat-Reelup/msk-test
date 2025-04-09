@@ -25,7 +25,7 @@ jobs:
         run: |
           docker build \
             -t ghcr.io/${{ github.actor }}/msk-producer:latest \
-            -f producer/Dockerfile \
+            -f msk-node-docker/producer/Dockerfile \
             producer
 
       - name: Push image
@@ -36,7 +36,7 @@ jobs:
         run: |
           docker build \
             -t ghcr.io/${{ github.actor }}/msk-consumer:latest \
-            -f consumer/Dockerfile \
+            -f msk-node-docker/consumer/Dockerfile \
             consumer
 
       - name: Push consumer
