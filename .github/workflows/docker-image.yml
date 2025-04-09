@@ -1,0 +1,44 @@
+name: Build and Push to GHCR
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v3
+
+      - name: Log in to GitHub Container Registry
+        uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          # This will use the automatically provided GITHUB_TOKEN with
+          # 'read/write packages' permissions on your repository (or org).
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build image
+        run: |
+          docker build \
+            -t ghcr.io/${{ github.actor }}/msk-producer:latest \
+            -f producer/Dockerfile \
+            producer
+
+      - name: Push image
+        run: |
+          docker push ghcr.io/${{ github.actor }}/msk-producer:latest
+          
+      - name: Build consumer
+        run: |
+          docker build \
+            -t ghcr.io/${{ github.actor }}/msk-consumer:latest \
+            -f consumer/Dockerfile \
+            consumer
+
+      - name: Push consumer
+        run: |
+          docker push ghcr.io/${{ github.actor }}/msk-consumer:latest
